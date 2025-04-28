@@ -33,9 +33,6 @@ abstract class NamespacedSettings
         $namespace = $this->getNamespace();
 
         foreach (get_object_vars($this) as $name => $value) {
-            if (in_array($name, ['settings'])) {
-                continue;
-            }
 
             $setting = $settings->firstWhere(function ($setting) use ($namespace, $name) {
                 return $setting->namespace === $namespace && $setting->name === $name;
@@ -58,9 +55,6 @@ abstract class NamespacedSettings
         $namespace = $this->getNamespace();
 
         foreach (get_object_vars($this) as $name => $value) {
-            if (in_array($name, ['settings'])) {
-                continue;
-            }
 
             Settings::set(
                 $namespace,
