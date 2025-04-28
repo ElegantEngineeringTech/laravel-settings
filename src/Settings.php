@@ -87,9 +87,8 @@ class Settings
     public function get(
         string $namespace,
         string $name,
-        mixed $default = null
     ): ?Setting {
-        return $this->only($namespace)->firstWhere('name', $name) ?? $default;
+        return $this->only($namespace)->firstWhere('name', $name);
     }
 
     /**
