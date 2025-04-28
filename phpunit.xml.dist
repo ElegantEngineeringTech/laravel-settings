@@ -16,12 +16,15 @@
     backupStaticProperties="false"
 >
     <testsuites>
-        <testsuite name="VendorName Test Suite">
-            <directory>tests</directory>
+        <testsuite name="Feature">
+            <directory suffix="Test.php">./tests/Feature</directory>
+        </testsuite>
+        <testsuite name="Unit">
+            <directory suffix="Test.php">./tests/Unit</directory>
         </testsuite>
     </testsuites>
     <logging>
-        <junit outputFile="build/report.junit.xml"/>
+        <junit outputFile="build/report.junit.xml" />
     </logging>
     <source>
         <include>

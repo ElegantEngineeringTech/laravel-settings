@@ -1,37 +1,47 @@
 <?php
 
-namespace VendorName\Skeleton\Tests;
+declare(strict_types=1);
 
+namespace Elegantly\Settings\Tests;
+
+use Elegantly\Settings\SettingsServiceProvider;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Orchestra\Testbench\TestCase as Orchestra;
-use VendorName\Skeleton\SkeletonServiceProvider;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
-class TestCase extends Orchestra
+class TestCase extends \Orchestra\Testbench\TestCase
 {
+    use RefreshDatabase;
+
     protected function setUp(): void
     {
         parent::setUp();
 
         Factory::guessFactoryNamesUsing(
-            fn (string $modelName) => 'VendorName\\Skeleton\\Database\\Factories\\'.class_basename($modelName).'Factory'
+            fn (string $modelName) => 'Elegantly\\Settings\\Database\\Factories\\'.class_basename($modelName).'Factory'
         );
     }
 
     protected function getPackageProviders($app)
     {
         return [
-            SkeletonServiceProvider::class,
+            SettingsServiceProvider::class,
         ];
     }
 
-    public function getEnvironmentSetUp($app)
+    /**
+     * Define environment setup.
+     *
+     * @param  \Illuminate\Foundation\Application  $app
+     * @return void
+     */
+    protected function defineEnvironment($app)
     {
-        config()->set('database.default', 'testing');
+        $app['config']->set('database.default', 'testing');
+    }
 
-        /*
-         foreach (\Illuminate\Support\Facades\File::allFiles(__DIR__ . '/database/migrations') as $migration) {
-            (include $migration->getRealPath())->up();
-         }
-         */
+    protected function defineDatabaseMigrations()
+    {
+        $migration = include __DIR__.'/../database/migrations/create_settings_table.php.stub';
+        $migration->up();
     }
 }

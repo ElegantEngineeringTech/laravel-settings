@@ -1,0 +1,33 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    public function up()
+    {
+        Schema::create('settings', function (Blueprint $table) {
+            $table->id();
+
+            $table->string('namespace');
+
+            $table->string('name');
+            $table->json('value');
+
+            $table->json('metadata')->default('{}');
+
+            $table->nullableMorphs('model');
+
+            $table->unique(['namespace', 'model_type', 'model_id', 'name']);
+
+            $table->timestamps();
+        });
+    }
+
+    public function down()
+    {
+        Schema::dropIfExists('settings');
+    }
+};
