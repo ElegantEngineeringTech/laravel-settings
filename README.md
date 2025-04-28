@@ -31,21 +31,39 @@ php artisan vendor:publish --tag="settings-config"
 This is the contents of the published config file:
 
 ```php
+use Elegantly\Settings\Models\Setting;
+
 return [
+
+    'model' => Setting::class,
+
+    'cache' => [
+        'enabled' => true,
+        'key' => 'settings',
+        'ttl' => 60 * 60 * 24,
+    ],
+
 ];
-```
-
-Optionally, you can publish the views using
-
-```bash
-php artisan vendor:publish --tag="laravel-settings-views"
 ```
 
 ## Usage
 
 ```php
-$settings = new Elegantly\Settings();
-echo $settings->echoPhrase('Hello, Elegantly!');
+use Elegantly\Settings\Facades\Settings;
+
+Settings::set(
+    namespace: 'home',
+    name: 'color',
+    value: 'white'
+);
+
+$setting = Settings::get(
+    namespace: 'home',
+    name: 'color',
+);
+
+echo $setting->value; // white
+
 ```
 
 ## Testing
