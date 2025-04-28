@@ -10,9 +10,14 @@ use Illuminate\Database\Eloquent\Collection;
 
 abstract class NamespacedSettings
 {
-    public function __construct()
+    final public function __construct()
     {
         $this->load();
+    }
+
+    public static function make(): static
+    {
+        return new static;
     }
 
     abstract public static function getNamespace(): string;

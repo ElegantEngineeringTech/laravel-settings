@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->json('value');
 
-            $table->json('metadata')->default('{}');
+            $table->json('metadata');
 
             $table->nullableMorphs('model');
 
