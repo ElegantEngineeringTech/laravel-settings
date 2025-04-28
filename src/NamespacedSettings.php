@@ -15,9 +15,9 @@ abstract class NamespacedSettings
         $this->load();
     }
 
-    public static function make(): static
+    public static function get(): static
     {
-        return new static;
+        return static::make();
     }
 
     abstract public static function getNamespace(): string;
