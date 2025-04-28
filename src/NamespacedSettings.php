@@ -10,17 +10,12 @@ use Illuminate\Database\Eloquent\Collection;
 
 abstract class NamespacedSettings
 {
-    abstract public function getNamespace(): string;
-
-    /**
-     * @var Collection<int, Setting>
-     */
-    protected Collection $settings;
-
     public function __construct()
     {
         $this->load();
     }
+
+    abstract public static function getNamespace(): string;
 
     public function load(): static
     {
@@ -34,8 +29,6 @@ abstract class NamespacedSettings
      */
     public function fill(Collection $settings): static
     {
-
-        $this->settings = new Collection;
 
         $namespace = $this->getNamespace();
 
@@ -53,8 +46,6 @@ abstract class NamespacedSettings
             }
 
             $this->{$name} = $setting->value;
-
-            $this->settings->push($setting);
 
         }
 
