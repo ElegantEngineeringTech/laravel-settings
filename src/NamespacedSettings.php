@@ -6,9 +6,13 @@ namespace Elegantly\Settings;
 
 use Elegantly\Settings\Facades\Settings;
 use Elegantly\Settings\Models\Setting;
+use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Database\Eloquent\Collection;
 
-abstract class NamespacedSettings
+/**
+ * @implements Arrayable<string, mixed>
+ */
+abstract class NamespacedSettings implements Arrayable
 {
     final public function __construct()
     {
@@ -17,16 +21,14 @@ abstract class NamespacedSettings
 
     public static function get(): static
     {
-        return static::make();
+        return new static;
     }
 
     abstract public static function getNamespace(): string;
 
     public function load(): static
     {
-        return $this->fill(
-            Settings::only($this->getNamespace())
-        );
+        return $this->fill(Settings::only($this->getNamespace()));
     }
 
     /**
@@ -43,11 +45,9 @@ abstract class NamespacedSettings
                 return $setting->namespace === $namespace && $setting->name === $name;
             });
 
-            if (! $setting) {
-                continue;
+            if ($setting) {
+                $this->{$name} = $setting->value;
             }
-
-            $this->{$name} = $setting->value;
 
         }
 
@@ -73,5 +73,13 @@ abstract class NamespacedSettings
 
         return $this;
 
+    }
+
+    /**
+     * @return array<string, mixed>
+     */
+    public function toArray(): array
+    {
+        return get_object_vars($this);
     }
 }
