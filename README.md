@@ -1,4 +1,4 @@
-# Laravel Settings
+# Elegant Global Settings Management in Laravel
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/elegantly/laravel-settings.svg?style=flat-square)](https://packagist.org/packages/elegantly/laravel-settings)
 [![Tests](https://img.shields.io/github/actions/workflow/status/ElegantEngineeringTech/laravel-settings/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/ElegantEngineeringTech/laravel-settings/actions?query=workflow%3Arun-tests+branch%3Amain)
