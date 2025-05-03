@@ -222,7 +222,7 @@ Please review our [security policy](../../security/policy) for reporting vulnera
 
 ---
 
-## 📝 License
+## License
 
 This package is open-sourced under the [MIT license](LICENSE.md).
 
