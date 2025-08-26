@@ -225,7 +225,3 @@ Please review our [security policy](../../security/policy) for reporting vulnera
 ## License
 
 This package is open-sourced under the [MIT license](LICENSE.md).
-
----
-
-Would you like a README badge for PHPStan or Laravel Pint added as well?
