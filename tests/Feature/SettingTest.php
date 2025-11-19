@@ -4,6 +4,16 @@ declare(strict_types=1);
 
 use Elegantly\Settings\Models\Setting;
 
+it('casts value to null', function () {
+    $setting = Setting::create([
+        'namespace' => 'namespace',
+        'name' => 'boolean',
+        'value' => null,
+    ]);
+
+    expect($setting->value)->toBe(null);
+});
+
 it('casts value to a bool', function () {
     $setting = Setting::create([
         'namespace' => 'namespace',
