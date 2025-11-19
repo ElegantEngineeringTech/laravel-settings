@@ -32,21 +32,33 @@ abstract class NamespacedSettings implements Arrayable
     }
 
     /**
-     * @param  Collection<int, Setting>  $settings
+     * @param  array<string, mixed>|Collection<int, Setting>  $settings
      */
-    public function fill(Collection $settings): static
+    public function fill(array|Collection $settings): static
     {
 
-        $namespace = $this->getNamespace();
+        if ($settings instanceof Collection) {
+            $namespace = $this->getNamespace();
 
-        foreach (get_object_vars($this) as $name => $value) {
+            foreach (get_object_vars($this) as $name => $value) {
 
-            $setting = $settings->firstWhere(function ($setting) use ($namespace, $name) {
-                return $setting->namespace === $namespace && $setting->name === $name;
-            });
+                $setting = $settings->firstWhere(function ($setting) use ($namespace, $name) {
+                    return $setting->namespace === $namespace && $setting->name === $name;
+                });
 
-            if ($setting) {
-                $this->{$name} = $setting->value;
+                if ($setting) {
+                    $this->{$name} = $setting->value;
+                }
+
+            }
+        } else {
+
+            foreach ($settings as $key => $value) {
+
+                if (property_exists(static::class, $key)) {
+                    $this->{$key} = $value;
+                }
+
             }
 
         }
